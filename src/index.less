@@ -6,3 +6,16 @@ html, body {
 * {
   font-family: 'Poppins', sans-serif;
 }
+
+body {
+  background-image: url('../public/assets/01-background.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 100vh;
+  margin: auto;
+  max-width: 386px;
+  @media screen and (max-width: 550px) {
+    background-size: cover;
+  }
+}
