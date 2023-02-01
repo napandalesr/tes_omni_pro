@@ -5,10 +5,11 @@ import "./styles.less";
 interface props {
   text: string
   clase: string
+  event: () => void
 }
 
-const Button: React.FC<props> = ({ text, clase }) => {
-  return <button className={clase}>{text}</button>;
+const Button: React.FC<props> = ({ text, clase, event }) => {
+  return <button onClick={() => { event(); }} className={clase}>{text}</button>;
 };
 
 export default Button;
