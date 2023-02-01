@@ -1,13 +1,16 @@
 import React from "react";
 import Header from "../../Components/Header";
-import Footer from "../../Components/Footer";
+import Login from "../../Pages/Home/Login";
+
+import "./styles.less";
 
 const Layout: React.FC = () => {
-  return <>
+  return <div className="layout">
   <Header/>
-  <main>main</main>
-  <Footer/>
-  </>;
+  <main>
+    <Login/>
+  </main>
+  </div>;
 };
 
 export default Layout;
