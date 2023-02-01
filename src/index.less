@@ -8,7 +8,6 @@ html, body {
 }
 
 body {
-  background-image: url('../public/assets/01-background.png');
   background-repeat: no-repeat;
   background-position: center;
   height: 760px;
@@ -16,6 +15,12 @@ body {
   max-width: 360px;
   @media screen and (max-width: 550px) {
     background-size: cover;
+  }
+  &.bg1 {
+    background-image: url('../public/assets/01-background.png');
+  }
+  &.bg2 {
+    background-image: url('../public/assets/02-background.png');
   }
 }
 
