@@ -66,7 +66,9 @@ export default class Login extends React.Component<PropsType, State> {
             text="Ingreso"
             clase={ this.state.form === "auth" ? classCss.primary + " underline" : classCss.secundary}/>
           </div>
-          { this.state.form === "auth" ? <FormLogin loadingHide={this.loadingHide} loadingShow={this.loadingShow}/> : <FormRegister/>}
+          { this.state.form === "auth"
+            ? <FormLogin loadingHide={this.loadingHide} loadingShow={this.loadingShow}/>
+            : <FormRegister loadingHide={this.loadingHide} loadingShow={this.loadingShow}/>}
         </section>
       </main>
       </>
