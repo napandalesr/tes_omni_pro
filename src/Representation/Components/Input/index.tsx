@@ -8,16 +8,15 @@ interface props {
   eventValidate?: any
   name: string
   errors?: any
-  alias: string
+  error?: boolean
 }
 
-const Input: React.FC<props> = ({ type, placeholder, eventValidate, name, errors, alias }) => {
+const Input: React.FC<props> = ({ type, placeholder, eventValidate, name, errors, error }) => {
   return <>
   <input
   type={type}
   placeholder={placeholder}
-  {...eventValidate} className={errors[name] ? "inputError" : ""}/>
-  {errors[name] && <p className="text-error">El Campo {alias} es requerido.</p>}
+  {...eventValidate} className={errors[name] || error ? "inputError" : ""}/>
   </>;
 };
 

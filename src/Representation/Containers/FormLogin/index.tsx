@@ -10,9 +10,18 @@ import { classCss } from "../../styles";
 interface props {
   loadingShow: () => void
   loadingHide: () => void
+  loginErrorShow: () => void
+  loginErrorHide: () => void
+  loginError: boolean
 }
 
-const FormLogin: React.FC<props> = ({ loadingShow, loadingHide }) => {
+const FormLogin: React.FC<props> = ({
+  loadingShow,
+  loadingHide,
+  loginErrorShow,
+  loginErrorHide,
+  loginError
+}) => {
   const [desableForm, setDesableForm] = React.useState(false);
   React.useEffect(() => {
     changeBrackground('bg1');
@@ -26,22 +35,24 @@ const FormLogin: React.FC<props> = ({ loadingShow, loadingHide }) => {
   } = useForm();
 
   const Submit = async (data: any): Promise<void> => {
+    loginErrorHide();
     setDesableForm(true);
     loadingShow();
     const authController = new AuthController();
     try {
       const response = await authController.auth(data.email, data.password);
       if ([200, 201, 202, 203, 204].includes(response.status)) {
-        console.log("Ok");
+        location.reload();
       }
+      reset({
+        email: "",
+        password: ""
+      });
     } catch (error) {
       console.log(error);
+      loginErrorShow();
       loadingHide();
     }
-    reset({
-      email: "",
-      password: ""
-    });
     setDesableForm(false);
     loadingHide();
   };
@@ -55,23 +66,22 @@ const FormLogin: React.FC<props> = ({ loadingShow, loadingHide }) => {
       placeholder="Email o nombre de usuario*"
       eventValidate={{ ...register('email', { required: true }) }}
       name="email"
-      errors={errors}
-      alias="Email o nombre de usuario"/>
+      errors={errors}/>
     <Input
       type="password"
       placeholder="Ingresa contraseña*"
       eventValidate={{ ...register('password', { required: true }) }}
       name="password"
       errors={errors}
-      alias="Contraseña"/>
+      error={loginError}/>
+    {loginError && <span className="text-error">Contraseña incorrecta</span>}
     <span className="containerLogin__newsletter">
       <Input
         type="radio"
         placeholder=""
         eventValidate={{ ...register('radio') }}
         name="subscribe"
-        errors={errors}
-        alias=""/>
+        errors={errors}/>
       <span className="containerLogin__newsletter__text">Suscríbete al newsletter</span>
     </span>
     <Button

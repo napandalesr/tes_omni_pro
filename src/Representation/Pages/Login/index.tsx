@@ -19,6 +19,7 @@ interface State {
   form: "auth" | "register"
   loading: boolean
   registerSucces: boolean
+  loginError: boolean
 }
 
 export default class Login extends React.Component<PropsType, State> {
@@ -27,7 +28,8 @@ export default class Login extends React.Component<PropsType, State> {
     this.state = {
       form: "auth",
       loading: false,
-      registerSucces: false
+      registerSucces: false,
+      loginError: false
     };
   }
 
@@ -61,6 +63,18 @@ export default class Login extends React.Component<PropsType, State> {
     });
   };
 
+  loginErrorShow = (): void => {
+    this.setState({
+      loginError: true
+    });
+  };
+
+  loginErrorHide = (): void => {
+    this.setState({
+      loginError: false
+    });
+  };
+
   render (): React.ReactNode {
     return <>
     {
@@ -84,7 +98,12 @@ export default class Login extends React.Component<PropsType, State> {
                 clase={ this.state.form === "auth" ? classCss.primary + " underline" : classCss.secundary}/>
               </div>
               { this.state.form === "auth"
-                ? <FormLogin loadingHide={this.loadingHide} loadingShow={this.loadingShow}/>
+                ? <FormLogin
+                    loadingHide={this.loadingHide}
+                    loadingShow={this.loadingShow}
+                    loginErrorShow={this.loginErrorShow}
+                    loginErrorHide={this.loginErrorHide}
+                    loginError={this.state.loginError}/>
                 : <FormRegister
                     loadingHide={this.loadingHide}
                     loadingShow={this.loadingShow}
