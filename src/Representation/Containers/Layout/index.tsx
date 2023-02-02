@@ -7,7 +7,7 @@ import GuardedRoute from "../../Routes/guardRouter";
 import "./styles.less";
 
 const Layout: React.FC = () => {
-  return <div className="layout">
+  return <div className="layout" id="layout">
     <Suspense fallback={<Loading/>}>
       <BrowserRouter>
       < GuardedRoute/>

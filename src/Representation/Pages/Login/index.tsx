@@ -33,6 +33,10 @@ export default class Login extends React.Component<PropsType, State> {
     };
   }
 
+  componentDidMount (): void {
+    console.log("props", this.props);
+  }
+
   handler = (campo: "auth" | "register"): void => {
     this.setState({
       form: campo
