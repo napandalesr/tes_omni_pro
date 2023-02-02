@@ -1,0 +1,20 @@
+@import "../../styles/_colors.less";
+
+.carousel {
+  button, .carousel-status, .thumbs {
+    display: none !important;
+  }
+  .dot {
+    width: 16px !important;
+    height: 4px !important;
+    border-radius: 20px !important;
+    box-shadow: none !important;
+    background-color: @blanco !important;
+    opacity: 1 !important;
+    margin: 0 4px !important;
+    &.selected {
+      background-color: @primary-color !important;
+      width: 32px !important;
+    }
+  }
+}
