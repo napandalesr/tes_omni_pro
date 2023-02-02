@@ -1,13 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+
+import { changeBrackground } from "../../../Helpers";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 import { classCss } from "../../styles";
 
 const FormRegister: React.FC = () => {
   React.useEffect(() => {
-    document.body.classList.remove("bg1");
-    document.body.classList.add('bg2');
+    changeBrackground('bg2');
   });
   const {
     register,

@@ -1,18 +1,23 @@
 import React from "react";
 import { useForm } from 'react-hook-form';
-import { AuthController } from "../../../App/Controller/auth.controller";
 
+import { AuthController } from "../../../App/Controller/auth.controller";
+import { changeBrackground } from "../../../Helpers";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 import { classCss } from "../../styles";
 
 import "./styles.less";
 
-const FormLogin: React.FC = () => {
+interface props {
+  loadingShow: () => void
+  loadingHide: () => void
+}
+
+const FormLogin: React.FC<props> = ({ loadingShow, loadingHide }) => {
   const [desableForm, setDesableForm] = React.useState(false);
   React.useEffect(() => {
-    document.body.classList.remove("bg2");
-    document.body.classList.add('bg1');
+    changeBrackground('bg1');
   });
 
   const {
@@ -24,6 +29,7 @@ const FormLogin: React.FC = () => {
 
   const Submit = async (data: any): Promise<void> => {
     setDesableForm(true);
+    loadingShow();
     const authController = new AuthController();
     try {
       const response = await authController.auth(data.email, data.password);
@@ -32,12 +38,14 @@ const FormLogin: React.FC = () => {
       }
     } catch (error) {
       console.log(error);
+      loadingHide();
     }
     reset({
       email: "",
       password: ""
     });
     setDesableForm(false);
+    loadingHide();
   };
 
   return <>
