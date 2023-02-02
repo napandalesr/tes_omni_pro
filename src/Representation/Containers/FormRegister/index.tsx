@@ -1,12 +1,26 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
+import { RegisterController } from "../../../App/Controller/RegisterController/register.controller";
 import { changeBrackground } from "../../../Helpers";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 import { classCss } from "../../styles";
 
-const FormRegister: React.FC = () => {
+interface props {
+  loadingShow: () => void
+  loadingHide: () => void
+  registerSuccessShow: () => void
+  registerSuccesHide: () => void
+}
+
+const FormRegister: React.FC<props> = ({
+  loadingShow,
+  loadingHide,
+  registerSuccessShow,
+  registerSuccesHide
+}) => {
+  const [desableForm, setDesableForm] = React.useState(false);
   React.useEffect(() => {
     changeBrackground('bg2');
   });
@@ -16,13 +30,38 @@ const FormRegister: React.FC = () => {
     formState: { errors }
   } = useForm();
 
-  const handler = (): void => {
-    console.log("Registro2");
+  const save = async (data: any): Promise<void> => {
+    setDesableForm(true);
+    loadingShow();
+    const registerController = new RegisterController();
+    try {
+      const response = await registerController.post({
+        email: data.email,
+        username: data.email,
+        password: data.password,
+        name: {
+          firstname: data.name,
+          lastname: data.lastName
+        }
+      });
+      if ([200, 201, 202, 203, 204].includes(response.status)) {
+        registerSuccessShow();
+        setTimeout(() => { registerSuccesHide(); }, 2000);
+        console.log("Ok");
+      }
+      setDesableForm(false);
+      loadingHide();
+    } catch (error) {
+      console.log(error);
+      loadingHide();
+      setDesableForm(false);
+    }
   };
   return <>
   <p className="containerLogin__title">Completa tus datos para registrarte</p>
-  <form onSubmit={handleSubmit((data) => { console.log(data); })}>
-    <Input
+  <form onSubmit={handleSubmit(async (data) => { await save(data); })}>
+  <fieldset disabled={desableForm} className={desableForm ? "opacity" : ""}>
+  <Input
       type="text"
       placeholder="Nombre*"
       eventValidate={{ ...register('name', { required: true }) }}
@@ -50,9 +89,10 @@ const FormRegister: React.FC = () => {
       errors={errors}
       alias="Contraseña"/>
     <Button
-      event={handler}
+       event={() => {}}
       text="Regístrate"
       clase={classCss.primary + " full"}/>
+  </fieldset>
   </form>
   </>;
 };

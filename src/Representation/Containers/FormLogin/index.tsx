@@ -1,13 +1,11 @@
 import React from "react";
 import { useForm } from 'react-hook-form';
 
-import { AuthController } from "../../../App/Controller/auth.controller";
+import { AuthController } from "../../../App/Controller/AuthController/auth.controller";
 import { changeBrackground } from "../../../Helpers";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 import { classCss } from "../../styles";
-
-import "./styles.less";
 
 interface props {
   loadingShow: () => void
