@@ -10,9 +10,16 @@ import { classCss } from "../../styles";
 interface props {
   loadingShow: () => void
   loadingHide: () => void
+  registerSuccessShow: () => void
+  registerSuccesHide: () => void
 }
 
-const FormRegister: React.FC<props> = ({ loadingShow, loadingHide }) => {
+const FormRegister: React.FC<props> = ({
+  loadingShow,
+  loadingHide,
+  registerSuccessShow,
+  registerSuccesHide
+}) => {
   const [desableForm, setDesableForm] = React.useState(false);
   React.useEffect(() => {
     changeBrackground('bg2');
@@ -38,6 +45,8 @@ const FormRegister: React.FC<props> = ({ loadingShow, loadingHide }) => {
         }
       });
       if ([200, 201, 202, 203, 204].includes(response.status)) {
+        registerSuccessShow();
+        setTimeout(() => { registerSuccesHide(); }, 2000);
         console.log("Ok");
       }
       setDesableForm(false);
