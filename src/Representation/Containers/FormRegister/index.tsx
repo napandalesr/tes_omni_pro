@@ -21,6 +21,7 @@ const FormRegister: React.FC<props> = ({
   registerSuccesHide
 }) => {
   const [desableForm, setDesableForm] = React.useState(false);
+  const [loginError, setLoginError] = React.useState(false);
   React.useEffect(() => {
     changeBrackground('bg2');
   });
@@ -29,6 +30,20 @@ const FormRegister: React.FC<props> = ({
     handleSubmit,
     formState: { errors }
   } = useForm();
+
+  React.useEffect(() => {
+    const error: any = errors;
+    console.log(error.name);
+    if (error.name !== undefined) {
+      if (
+        error.name.message === "" ||
+        error.lastName.message === "" ||
+        error.email.message === "" ||
+        error.password.message === "") {
+        setLoginError(true);
+      }
+    }
+  }, [errors]);
 
   const save = async (data: any): Promise<void> => {
     setDesableForm(true);
@@ -65,29 +80,26 @@ const FormRegister: React.FC<props> = ({
       type="text"
       placeholder="Nombre*"
       eventValidate={{ ...register('name', { required: true }) }}
-      errors={errors} name="name"
-      alias="Nombre"/>
+      errors={errors} name="name"/>
     <Input
       type="text"
       placeholder="Apellido*"
       name="lastName"
       eventValidate={{ ...register('lastName', { required: true }) }}
-      errors={errors}
-    alias="Apellido*"/>
+      errors={errors}/>
     <Input
       type="text"
       placeholder="E-mail*"
       name="email"
       eventValidate={{ ...register('email', { required: true }) }}
-      errors={errors}
-      alias="E-mail"/>
+      errors={errors}/>
     <Input
       type="password"
       placeholder="Contraseña*"
       name="password"
       eventValidate={{ ...register('password', { required: true }) }}
-      errors={errors}
-      alias="Contraseña"/>
+      errors={errors}/>
+      {loginError && <span className="text-error">Por favor, diligencia los campos marcados</span>}
     <Button
        event={() => {}}
       text="Regístrate"
