@@ -1,15 +1,15 @@
 import React from "react";
-import Header from "../../Components/Header";
-import Login from "../../Pages/Login";
+import { BrowserRouter } from 'react-router-dom';
+
+import GuardedRoute from "../../Routes/guardRouter";
 
 import "./styles.less";
 
 const Layout: React.FC = () => {
   return <div className="layout">
-  <Header/>
-  <main>
-    <Login props={undefined}/>
-  </main>
+    <BrowserRouter>
+    <GuardedRoute/>
+    </BrowserRouter>
   </div>;
 };
 

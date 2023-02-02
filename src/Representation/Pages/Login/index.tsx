@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../../Components/Button";
 import H1 from "../../Components/H1";
+import Header from "../../Components/Header";
 import FormLogin from "../../Containers/FormLogin";
 import FormRegister from "../../Containers/FormRegister";
 import { classCss } from "../../styles";
@@ -8,7 +9,7 @@ import { classCss } from "../../styles";
 import "./styles.less";
 
 interface PropsType {
-  props: any
+  props?: any
 }
 
 interface State {
@@ -31,7 +32,9 @@ export default class Login extends React.Component<PropsType, State> {
 
   render (): React.ReactNode {
     return <>
-    <H1/>
+    <Header/>
+      <main>
+      <H1/>
     <section className="containerLogin">
       <div className="containerLogin__buttons">
         <Button
@@ -45,6 +48,7 @@ export default class Login extends React.Component<PropsType, State> {
       </div>
       { this.state.form === "auth" ? <FormLogin/> : <FormRegister/>}
     </section>
+      </main>
     </>;
   }
 }
