@@ -2,35 +2,49 @@ import React from "react";
 
 import Header from "../../Components/Header";
 import DescriptionProducts from "../../Containers/DescriptionProducts";
-
 import Slick from "../../Components/Slick";
 import CarouselComponent from "../../Components/CarouselComponent";
+import Footer from "../../Components/Footer";
+import { type ProductDto } from "../../../App/Controller/Products/products.dto";
+import { ProductsController } from "../../../App/Controller/Products/products.controller";
 
 import "./styles.less";
-import Footer from "../../Components/Footer";
 
 interface PropsType {
   id: number
 }
 
 interface State {
-  form: "auth" | "register"
-  loading: boolean
-  registerSucces: boolean
-  loginError: boolean
+  dataSource: ProductDto[]
 }
 
 export default class Product extends React.Component<PropsType, State> {
-  componentDidMount (): void {
+  constructor (props: any) {
+    super(props);
+    this.state = {
+      dataSource: []
+    };
+  }
+
+  async componentDidMount (): Promise<void> {
     document.getElementById("layout")?.classList.remove("layout");
+    await this.getData();
+  };
+
+  getData = async (): Promise<void> => {
+    const productsController = new ProductsController();
+    const dataSource = await productsController.getAll();
+    this.setState({
+      dataSource: dataSource.data
+    });
   };
 
   render (): React.ReactNode {
     return <>
     <Header/>
-    <CarouselComponent/>
+    {this.state.dataSource.length > 0 && <CarouselComponent images={this.state.dataSource[0].images}/>}
     <section className="descriptionProduct">
-    <DescriptionProducts/>
+      {this.state.dataSource.length > 0 && <DescriptionProducts dataSource={this.state.dataSource[0]}/>}
     <div className="other-products">
       <h4 className="other-products__title">TAMBIÉN TE PODRÍA GUSTAR</h4>
       <Slick/>
