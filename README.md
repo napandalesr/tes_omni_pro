@@ -4,7 +4,7 @@
 
 ### Observaciones
 
-* Se utiliza el recomendada (https://fakestoreapi.com/docs) para el registro y el inicio de sesión
+* Se utiliza el Api recomendada (https://fakestoreapi.com/docs) para el registro y el inicio de sesión
 * Se observa que el inicio de sesión funciona perfectamente usando datos ya registrados
 * El api no guarda datos nuevos por lo tanto no se crean usuarios nuevos solo simula la petición
 * Para iniciar sesión se debe usar uno de los usuarios ya registrados
