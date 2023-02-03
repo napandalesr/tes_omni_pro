@@ -11,3 +11,13 @@ export const changeBrackground = (clase: string): void => {
   );
   document.body.classList.add(clase);
 };
+
+export const setUserSession = (token: string): void => {
+  localStorage.setItem("access_token", token);
+  location.reload();
+};
+
+export const LogOut = (): void => {
+  localStorage.clear();
+  location.assign("/");
+};

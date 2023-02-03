@@ -9,6 +9,8 @@ import { type ProductDto } from "../../../App/Controller/Products/products.dto";
 import { ProductsController } from "../../../App/Controller/Products/products.controller";
 
 import "./styles.less";
+import Button from "../../Components/Button";
+import { LogOut } from "../../../Helpers";
 
 interface PropsType {
   id: number
@@ -39,6 +41,10 @@ export default class Product extends React.Component<PropsType, State> {
     });
   };
 
+  cerrarSesion = (): void => {
+    LogOut();
+  };
+
   render (): React.ReactNode {
     return <>
     <Header/>
@@ -51,6 +57,10 @@ export default class Product extends React.Component<PropsType, State> {
     </div>
     </section>
     <Footer/>
+    <Button
+    text="Cerrar sesión"
+    clase="primary"
+    event={this.cerrarSesion}/>
     </>;
   }
 }

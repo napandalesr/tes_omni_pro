@@ -33,7 +33,6 @@ const FormRegister: React.FC<props> = ({
 
   React.useEffect(() => {
     const error: any = errors;
-    console.log(error.name);
     if (error.name !== undefined) {
       if (
         error.name.message === "" ||
@@ -62,7 +61,6 @@ const FormRegister: React.FC<props> = ({
       if ([200, 201, 202, 203, 204].includes(response.status)) {
         registerSuccessShow();
         setTimeout(() => { registerSuccesHide(); }, 2000);
-        console.log("Ok");
       }
       setDesableForm(false);
       loadingHide();

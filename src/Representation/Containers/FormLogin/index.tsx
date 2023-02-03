@@ -2,10 +2,12 @@ import React from "react";
 import { useForm } from 'react-hook-form';
 
 import { AuthController } from "../../../App/Controller/AuthController/auth.controller";
-import { changeBrackground } from "../../../Helpers";
+import { changeBrackground, setUserSession } from "../../../Helpers";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 import { classCss } from "../../styles";
+
+import "./styles.less";
 
 interface props {
   loadingShow: () => void
@@ -23,6 +25,7 @@ const FormLogin: React.FC<props> = ({
   loginError
 }) => {
   const [desableForm, setDesableForm] = React.useState(false);
+  const [vewPassword, setViewPassword] = React.useState(false);
   React.useEffect(() => {
     changeBrackground('bg1');
   });
@@ -42,7 +45,7 @@ const FormLogin: React.FC<props> = ({
     try {
       const response = await authController.auth(data.email, data.password);
       if ([200, 201, 202, 203, 204].includes(response.status)) {
-        location.reload();
+        setUserSession(response.data.token);
       }
       reset({
         email: "",
@@ -57,6 +60,10 @@ const FormLogin: React.FC<props> = ({
     loadingHide();
   };
 
+  const passwordView = (): void => {
+    setViewPassword(!vewPassword);
+  };
+
   return <>
   <p className="containerLogin__title">Ingresa con tus datos</p>
   <form onSubmit={handleSubmit(async (data) => { await Submit(data); })}>
@@ -67,13 +74,17 @@ const FormLogin: React.FC<props> = ({
       eventValidate={{ ...register('email', { required: true }) }}
       name="email"
       errors={errors}/>
+    <div className="input-wrapper">
     <Input
-      type="password"
+      type={vewPassword ? "text" : "password"}
       placeholder="Ingresa contraseña*"
       eventValidate={{ ...register('password', { required: true }) }}
       name="password"
       errors={errors}
+      clase="input password"
       error={loginError}/>
+      <img src="assets/08-icon-password.svg" onClick={() => { passwordView(); }}/>
+    </div>
     {loginError && <span className="text-error">Contraseña incorrecta</span>}
     <span className="containerLogin__newsletter">
       <Input
