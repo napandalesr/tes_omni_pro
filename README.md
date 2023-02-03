@@ -1,6 +1,29 @@
-# Getting Started with Create React App
+# TEST OMNI PRO
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## NEIDER ANDRES PANDALES RENTERIA
+
+### Observaciones
+
+* Se utiliza el recomendada (https://fakestoreapi.com/docs) para el registro y el inicio de sesión
+* Se observa que el inicio de sesión funciona perfectamente usando datos ya registrados
+* El api no guarda datos nuevos por lo tanto no se crean usuarios nuevos solo simula la petición
+* Para iniciar sesión se debe usar uno de los usuarios ya registrados
+* Ejemplos
+* 1
+* usuario = johnd 
+* contraseña = m38rmF$
+* 2
+* usuario = mor_2314
+* contraseña = m38rmF$
+* 3
+* usuario = kevinryan
+* contraseña kev02937@
+* 4
+* usuario = donero
+* contraseña ewedon
+
+### Se crea un enpoint para consumir los datos y las imagenes del producto (https://app-prueba.herokuapp.com/productos)
+
 
 ## Available Scripts
 
