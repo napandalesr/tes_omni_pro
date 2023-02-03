@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from 'react-hook-form';
 
 import { AuthController } from "../../../App/Controller/AuthController/auth.controller";
-import { changeBrackground } from "../../../Helpers";
+import { changeBrackground, setUserSession } from "../../../Helpers";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 import { classCss } from "../../styles";
@@ -42,7 +42,7 @@ const FormLogin: React.FC<props> = ({
     try {
       const response = await authController.auth(data.email, data.password);
       if ([200, 201, 202, 203, 204].includes(response.status)) {
-        location.reload();
+        setUserSession(response.data.token);
       }
       reset({
         email: "",
